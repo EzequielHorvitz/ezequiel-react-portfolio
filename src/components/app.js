@@ -73,10 +73,9 @@ export default class App extends Component {
     this.checkLoginStatus();
   }
 
-  authorizedPages() {
-    
+  authorizedPages() {    
     return [
-      <Route path="/portfolio-manager" component={PortfolioManager} />
+      <Route key="portfolio-maanger" path="/portfolio-manager" component={PortfolioManager} />
     ];
   }
 
