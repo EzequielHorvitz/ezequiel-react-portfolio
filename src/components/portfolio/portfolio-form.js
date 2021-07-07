@@ -8,6 +8,7 @@ import "../../../node_modules/dropzone/dist/min/dropzone.min.css";
 export default class PortfolioForm extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       name: "",
       description: "",
@@ -16,27 +17,34 @@ export default class PortfolioForm extends Component {
       url: "",
       thumb_image: "",
       banner_image: "",
-      logo: "",
+      logo: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.componentConfig = this.componentConfig.bind(this);
     this.djsConfig = this.djsConfig.bind(this);
+    this.handleThumbDrop = this.handleThumbDrop.bind(this);
+  }
+
+  handleThumbDrop() {
+    return {
+      addedfile: file => this.setState({ thumb_image: file })
+    };
   }
 
   componentConfig() {
     return {
-      iconFiletypes: [".jpeg", ".png"],
+      iconFiletypes: [".jpg", ".png"],
       showFiletypeIcon: true,
-      postUrl: "https://httpbin.org/post",
+      postUrl: "https://httpbin.org/post"
     };
   }
 
   djsConfig() {
     return {
       addRemoveLinks: true,
-      maxFiles: 1,
+      maxFiles: 1
     };
   }
 
@@ -49,26 +57,30 @@ export default class PortfolioForm extends Component {
     formData.append("portfolio_item[category]", this.state.category);
     formData.append("portfolio_item[position]", this.state.position);
 
+    if (this.state.thumb_image) {
+      formData.append("portfolio_item[thumb_image]", this.state.thumb_image);
+    }
+
     return formData;
   }
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     });
   }
 
   handleSubmit(event) {
     axios
       .post(
-        "https://jordan.devcamp.space/portfolio/portfolio_items",
+        "https://ezequielh.devcamp.space/portfolio/portfolio_items", //EN CASO DE SUSTITUIR REVISAR LINK
         this.buildForm(),
         { withCredentials: true }
       )
-      .then((response) => {
+      .then(response => {
         this.props.handleSuccessfulFormSubmission(response.data.portfolio_item);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log("portfolio form handleSubmit error", error);
       });
 
@@ -133,7 +145,8 @@ export default class PortfolioForm extends Component {
             <DropzoneComponent
               config={this.componentConfig()}
               djsConfig={this.djsConfig()}
-            ></DropzoneComponent>
+              eventHandlers={this.handleThumbDrop()}
+            />
           </div>
 
           <div>
