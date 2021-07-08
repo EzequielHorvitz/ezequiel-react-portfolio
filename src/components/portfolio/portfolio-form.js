@@ -99,7 +99,7 @@ export default class PortfolioForm extends Component {
   handleSubmit(event) {
     axios
       .post(
-        "https://ezequielh.devcamp.space/portfolio/portfolio_items",
+        " https://ezequielh.devcamp.space/portfolio/portfolio_items",
         this.buildForm(),
         { withCredentials: true }
       )
@@ -186,7 +186,9 @@ export default class PortfolioForm extends Component {
             config={this.componentConfig()}
             djsConfig={this.djsConfig()}
             eventHandlers={this.handleThumbDrop()}
-          />
+          >
+              <div className="dz-message">Thumbnail</div>
+        </DropzoneComponent>
 
           <DropzoneComponent
             ref={this.bannerRef}
