@@ -1,56 +1,23 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
 
-export default class BlogDetail extends Component {
-  constructor(props) {
-    super(props);
+const BlogItem = props => {
+  const {
+    id,
+    blog_status,
+    content,
+    title,
+    featured_image_url
+  } = props.blogItem;
 
-    this.state = {
-      currentId: this.props.match.params.slug,
-      blogItem: {}
-    };
-  }
+  return (
+    <div>
+      <Link to={`/b/${id}`}>
+        <h1>{title}</h1>
+      </Link>
+      <div>{content}</div>
+    </div>
+  );
+};
 
-  getBlogItem() {
-    axios
-      .get(
-        `https://ezequielh.devcamp.space/portfolio/portfolio_blogs/${this.state
-          .currentId}`
-      )
-      .then(response => {
-        this.setState({
-          blogItem: response.data.portfolio_blog
-        });
-      })
-      .catch(error => {
-        console.log("getBlogItem error", error);
-      });
-  }
-
-  componentDidMount() {
-    this.getBlogItem();
-  }
-
-  render() {
-    const {
-      title,
-      content,
-      featured_image_url,
-      blog_status
-    } = this.state.blogItem;
-
-    return (
-      <div className="blog-container">
-        <div className="content-container">
-          <h1>{title}</h1>
-
-          <div className="featured-image-wrapper">
-            <img src={featured_image_url} />
-          </div>
-
-          <div className="content">{content}</div>
-        </div>
-      </div>
-    );
-  }
-}
+export default BlogItem;
