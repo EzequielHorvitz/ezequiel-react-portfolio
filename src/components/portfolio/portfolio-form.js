@@ -79,7 +79,7 @@ export default class PortfolioForm extends Component {
         editMode: true,
         apiUrl: `https://ezequielh.devcamp.space/portfolio/portfolio_items/${id}`,
         apiAction: "patch",
-        thumb_image: thumb_image_url || "",
+        thumb_image_url: thumb_image_url || "",
         banner_image: banner_image_url || "",
         logo_url: logo_url || "",
       });
